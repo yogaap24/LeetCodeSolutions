@@ -11,12 +11,26 @@ func maxDepth(root *TreeNode) int {
         return 0
     }
     
-    left := maxDepth(root.Left)
-    right := maxDepth(root.Right)
+    pool := []*TreeNode{root}
+    depth := 0
     
-    if left > right {
-       return left + 1
+    for len(pool) > 0 {
+        depth++
+        level := len(pool)
+        
+        for i := 0; i < level; i++ {
+            node := pool[0]
+            pool = pool[1:]
+            
+            if node.Left != nil {
+                pool = append(pool, node.Left)
+            }
+            
+            if node.Right != nil {
+                pool = append(pool, node.Right)
+            }
+        }
     }
     
-    return right + 1
+    return depth
 }
