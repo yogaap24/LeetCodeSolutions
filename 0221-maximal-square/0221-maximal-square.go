@@ -7,9 +7,20 @@ func maximalSquare(matrix [][]byte) int {
         dp[i] = make([]int, n)
     }
 
-    maxSide := 0;
+    maxSide := 0
 
     for i := 0; i < m; i++ {
+        onesCount := 0
+        for j := 0; j < n; j++ {
+            if matrix[i][j] == '1' {
+                onesCount++
+            }
+        }
+
+        if n > 2 && onesCount == 0 {
+            continue
+        }
+
         for j := 0; j < n; j++ {
             if matrix[i][j] == '1' {
                 if i == 0 || j == 0 {
